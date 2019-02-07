@@ -76,6 +76,12 @@ public class ProductGateway extends RouteBuilder {
             .route().id("productsOptions").end()
         .endRest()
 
+         rest("/myproducts/").description("my Product Catalog Service").produces(MediaType.APPLICATION_JSON_VALUE)
+        // Handle CORS Pre-flight requests
+        .options("/")
+            .route().id("myProductsOptions").end()
+        .endRest()
+            
         .get("/").description("Get product catalog").outType(Product.class)
             .route().id("productRoute")
                 .hystrix().id("Product Service")
